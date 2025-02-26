@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from hw_01.password_generator import get_random_password
 from hw_01.calculator_speed_fine import calculate_speed_fine
+from hw_01.calculator_planet_gravity import calculate_planet_gravity
 
 app = FastAPI()
 
@@ -11,6 +12,18 @@ def password(length: str):
     if length.isdigit():
         return f"password: {get_random_password(int(length))}"
     return "Input integer"
+
+
+@app.get("/gravity")
+def gravity(planet: str, height: str):
+    if not height.isdigit():
+        return "Height should be integer"
+    try:
+        result_gravity = calculate_planet_gravity(planet, int(height))
+    except ValueError:
+        return "Planet not found"
+
+    return f"gravity: {result_gravity}"
 
 
 @app.get("/speed-fine")
