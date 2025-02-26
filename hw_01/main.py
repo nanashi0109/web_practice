@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from hw_01.password_generator import get_random_password
 from hw_01.calculator_speed_fine import calculate_speed_fine
 from hw_01.calculator_planet_gravity import calculate_planet_gravity
+from hw_01.currency_convertor import get_amount_convert_currency
 
 app = FastAPI()
 
@@ -33,6 +34,22 @@ def speeding_fine(speed: str, limit: str):
 
     fine = calculate_speed_fine(int(speed), int(limit))
     return f"fine: {fine} rubles"
+
+
+@app.get("/convert/{from_currency}/{to_currency}")
+def convert_currency(from_currency: str, to_currency: str, amount: str, commission_rate: str):
+    try:
+        amount = float(amount)
+        commission_rate = float(commission_rate)
+    except ValueError:
+        return "Amount and commission should be integer"
+
+    try:
+        result = get_amount_convert_currency(from_currency, to_currency, amount, commission_rate)
+    except ValueError:
+        return "Currency not found"
+
+    return f"amount: {result}"
 
 
 if __name__ == "__main__":
