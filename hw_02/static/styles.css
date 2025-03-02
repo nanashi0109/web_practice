@@ -1,0 +1,48 @@
+.cats-container{
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 10px;
+}
+
+.cat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 100px;
+    width: 150px;
+
+    background-color: bisque;
+    border-radius: 3px;
+
+    margin: 10px;
+    padding: 3px;
+}
+
+.remove-button {
+    align-self: flex-end;
+    text-align: center;
+
+    width: 20px;
+    height: 20px;
+    
+
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.like-container{
+    height: 20px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.base-text{
+    height: 20px;
+    margin: 0;
+}
