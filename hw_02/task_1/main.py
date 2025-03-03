@@ -11,10 +11,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Разрешить все источники
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Разрешить все методы
-    allow_headers=["*"],  # Разрешить все заголовки
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 cats_dp = CatsDB()
@@ -49,7 +49,6 @@ def like_cat(cat_id: int):
 
 @app.delete("/cats/{cat_id}")
 def delete_cat(cat_id: int):
-    logger.info("Start deleting")
     try:
         cat_id = int(cat_id)
     except ValueError:

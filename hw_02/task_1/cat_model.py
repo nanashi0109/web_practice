@@ -46,7 +46,7 @@ class CatsDB:
     def __create_dp(self):
         self.__cursor.execute("""
         CREATE TABLE IF NOT EXISTS Cats (
-        id              INT PRIMARY KEY,
+        id              INTEGER PRIMARY KEY,
         name            TEXT NOT NULL,
         age             INTEGER NOT NULL,
         count_likes     INTEGER NOT NULL
