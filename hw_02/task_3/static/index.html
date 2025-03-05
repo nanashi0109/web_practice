@@ -7,7 +7,50 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="top-bar">
+        <h1>Заполните форму, чтобы отправить посылку</h1>
+
+        <div class="percel-add-container">
+            <h2 class="parcel-header">Форма заполнения посылки</h2>
+            
+            <div class="parcel-add-body">
+                <div class="parcel-add-left-bar">
+                    <p>Название: </p>
+                    <p>Адрес отправителя: </p>
+                    <p>Место назначения: </p>
+                    <p>Вес: </p>
+                </div>
     
+                <div class="parcel-add-right-bar">
+                    <input type="text">
+                    <input type="text">
+                    <input type="text">
+                    <input type="text">
+                </div>
+            </div>
+            <div class="parcel-add-button-container">
+                <button>Очистить форму</button>
+                <button>Отправить посылку</button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="bottm-bar">
+        <h1 class="parcel-header">Существующие посылки</h1>
+
+        <div id="parcels-container" class="parcels-container">
+            <div class="parcel-card">
+                <h3 class="parcel-card-header">name</h3>
+                <p>status</p>
+                <p>weigth</p>
+                <p><s></s>enders address</p>
+                <p>destination</p>
+            </div>
+        </div>
+    
+    </div>
 
     <script src="scripts.js"></script>
 </body>
