@@ -44,10 +44,10 @@ def add_parcels(model: ParcelsModel):
 
 
 @app.patch("/parcels/{id}")
-def update_parcels_status(id: int, new_status: str):
-    parcels_db.update_status(id=id, status=new_status)
+def update_parcels_status(id: int, status: str):
+    parcels_db.update_status(id=id, status=status)
 
-    logger.info(f"PATCH/update-status: {id} - {new_status}")
+    logger.info(f"PATCH/update-status: {id} - {status}")
     return {"status": "ok"}
 
 

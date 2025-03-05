@@ -104,5 +104,9 @@ document.getElementById("update-currency").onclick = () => {
 
 const recreateContainer = function(currencies) {
     container.innerHTML = "";
-    currencies.forEach(currency => createCurrency(currency.name, currency.rate))
+
+    currencies.forEach(currency => 
+        {
+            createCurrency(currency.name, currency.rate);
+        });
 }

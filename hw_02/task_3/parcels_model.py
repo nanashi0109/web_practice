@@ -6,15 +6,15 @@ from pydantic import BaseModel
 class ParcelsModel(BaseModel):
     id: int | None = None
     name: str
-    status: str = "in-transit"
-    destination: str
-    senders_address: str
     weight: float
+    senders_address: str
+    destination: str
+    status: str = "in-transit"
 
 
 class ParcelsDB:
     def __init__(self):
-        self.__connection = sqlite3.Connection("parcels_.db")
+        self.__connection = sqlite3.Connection("parcels_.db", check_same_thread=False)
         self.__cursor = self.__connection.cursor()
         self.create_db()
     
