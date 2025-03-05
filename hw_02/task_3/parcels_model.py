@@ -8,7 +8,7 @@ class ParcelsModel(BaseModel):
     name: str
     status: str = "in-transit"
     destination: str
-    recipient: str
+    senders_address: str
     weight: float
 
 
@@ -21,12 +21,12 @@ class ParcelsDB:
     def create_db(self):
         self.__cursor.execute("""
         CREATE TABLE IF NOT EXISTS parcel (
-        id          INT PRIMARY KEY,
-        name            TEXT NOT NULL,
-        status          TEXT NOT NULL,
-        destination     TEXT NOT NULL,
-        recipient       TEXT NOT NULL,
-        weight          FLOAT NOT NULL
+        id                  INT PRIMARY KEY,
+        name                TEXT NOT NULL,
+        status              TEXT NOT NULL,
+        destination         TEXT NOT NULL,
+        senders_address     TEXT NOT NULL,
+        weight              FLOAT NOT NULL
         )
         """)
     
@@ -36,17 +36,20 @@ class ParcelsDB:
         parcels_tuple = self.__cursor.fetchall()
         parcels = []
 
-        for (id, name, status, destination, recipient, weight) in parcels_tuple:
-            parcel = ParcelsModel(id=id, name=name, status=status, destination=destination, recipient=recipient, weight=weight)
+        for (id, name, status, destination, senders_address, weight) in parcels_tuple:
+            parcel = ParcelsModel(id=id, name=name, status=status, destination=destination, senders_address=senders_address, weight=weight)
             parcels.append(parcel)
 
         return parcels
 
     def add_parcel(self, model: ParcelsModel):
+        if model.id == None:
+            model.id = self.__get_last_id()
+
         self.__cursor.execute("""
-        INSERT INTO parcel(id, name, status, destination, recipient, weight)
+        INSERT INTO parcel(id, name, status, destination, senders_address, weight)
         VALUES(?, ?, ?, ?, ?, ?)
-        """, (model.id, model.name, model.status, model.destination, model.recipient, model.weight))
+        """, (model.id, model.name, model.status, model.destination, model.senders_address, model.weight))
 
         self.__connection.commit()
 
@@ -68,5 +71,4 @@ class ParcelsDB:
         parcels = self.get_parcels()
 
         return min(i.id for i in parcels) + 1
-
-    def 
+    
