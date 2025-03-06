@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="top-bar">
-        <h1>Заполните форму, чтобы отправить посылку</h1>
 
         <div class="percel-add-container">
             <h2 class="parcel-header">Форма заполнения посылки</h2>
@@ -33,6 +32,22 @@
                 <button id="add-button">Отправить посылку</button>
             </div>
         </div>
+        
+        <div>
+            <div class="modify-parcel-panel">
+                <p>Изменить статус</p>
+                <input id="change-status-number" type="text" placeholder="номер посылки">
+                <input id="change-status-text" type="text" placeholder="новый статус">
+                <button id="change-status-button"> Изменить</button>
+            </div>
+    
+            <div class="modify-parcel-panel">
+                <p>Удалить посылку</p>
+                <input id="remove-parcel-number" type="text" placeholder="номер посылки">
+                <button id="remove-parcel-button"> Удалить</button>
+            </div>
+        </div>
+
     </div>
 
     <hr>

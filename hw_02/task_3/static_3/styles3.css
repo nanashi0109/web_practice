@@ -4,7 +4,7 @@ p{
 
 .top-bar{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     align-items: center;
     justify-content: center;
@@ -104,3 +104,24 @@ p{
     margin: 0px;
 }
 
+.modify-parcel-panel{
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+    
+    justify-content: space-around;
+    
+    height: 100px;
+    width: 150px;
+    
+    padding: 10px;
+    margin: 100px;
+
+    border-radius: 10px;
+    border-color:bisque;
+    border-width: 5px;
+    border-style: solid;
+
+    background-color: antiquewhite;
+}

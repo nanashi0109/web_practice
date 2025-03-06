@@ -79,7 +79,7 @@ const addParcel = function(name, weight, senders_address, destination){
 }
 
 const updateStatus = function(id_parcel, new_status) {
-    return fetch(backendURL + "/parcel/" + id_parcel, {
+    return fetch(backendURL + "/parcels/" + id_parcel, {
         method: "PATCH",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({id: id_parcel, status: new_status})
@@ -88,7 +88,7 @@ const updateStatus = function(id_parcel, new_status) {
     .catch(error => console.log(error));
 }
 
-const deleteParce = function(id_parcel) {
+const deleteParcel = function(id_parcel) {
     return fetch(backendURL + "/parcels/" + id_parcel, {
         method: "DELETE",
         headers: {'Content-Type': 'application/json'},
@@ -126,6 +126,25 @@ const recrateParcelContainer = function(parcels) {
 }
 
 document.getElementById("clear-button").onclick = clearInputField;
+
+document.getElementById("change-status-button").onclick = () => {
+    const parcelNumber = document.getElementById("change-status-number").value;
+    const newStatus = document.getElementById("change-status-text").value;
+
+    updateStatus(parcelNumber, newStatus)
+    .then(() => getAllParcels())
+    .then(parcels => recrateParcelContainer(parcels))
+    .catch(error => console.log(error));
+}
+
+document.getElementById("remove-parcel-button").onclick = () => {
+    const parcelNumber = document.getElementById("remove-parcel-number").value;
+
+    deleteParcel(parcelNumber)
+    .then(() => getAllParcels())
+    .then(parcels => recrateParcelContainer(parcels))
+    .catch(error => console.log(error));
+}
 
 window.onload = () => {
     getAllParcels()
