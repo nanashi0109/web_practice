@@ -71,7 +71,7 @@ class CurrencyDP:
         self.__cursor.execute("""
         UPDATE Currencies 
         SET rate = ? 
-        WHERE name = ?;""", (currency_name, rate))
+        WHERE name = ?;""", (rate, currency_name))
 
         self.__connection.commit()
 

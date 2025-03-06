@@ -30,12 +30,25 @@ const createParcel = function(id, name, status, weight, senders_address, destina
     parcelsContainer.appendChild(parcel);
 }
 
-const getAllParcels = async function(status, destination) {
+const getFilterParcels = async function(status, destination) {
     try{
         const response = await fetch(backendURL + "/parcels?status=" + status + "&destination=" + destination)
         const data = await response.json()
 
-        return data || []; 
+        return data.parcels || []; 
+    }
+    catch(error){
+        console.log(error);
+        return [];
+    }
+}
+
+const getAllParcels = async function() {
+    try{
+        const response = await fetch(backendURL + "/parcels?status=None&destination=None")
+        const data = await response.json()
+
+        return data.parcels || []; 
     }
     catch(error){
         console.log(error);
@@ -81,7 +94,7 @@ document.getElementById("add-button").onclick = () => {
     destination = document.getElementById("input-destination").value;
     
     addParcel(name, weight, senders_address, destination)
-    .then(() => getAllParcels("None", "None"))
+    .then(() => getAllParcels())
     .then(parcels => recrateParcelContainer(parcels))
     .catch(error => console.log(error));
 }
@@ -96,14 +109,14 @@ const clearInputField = function() {
 
 const recrateParcelContainer = function(parcels) {
     parcelsContainer.innerHTML = "";
-    
+
     parcels.forEach(parcel => createParcel(parcel.id, parcel.name, parcel.status, parcel.weight, parcel.senders_address, parcel.destination));
 }
 
 document.getElementById("clear-button").onclick = clearInputField;
 
 window.onload = () => {
-    getAllParcels("None", "None")
+    getAllParcels()
     .then(parcels => recrateParcelContainer(parcels))
     .catch(error => console.log(error));
 }

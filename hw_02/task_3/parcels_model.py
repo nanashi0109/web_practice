@@ -4,12 +4,12 @@ from pydantic import BaseModel
 
 
 class ParcelsModel(BaseModel):
-    id: int | None = None
     name: str
     weight: float
     senders_address: str
     destination: str
-    status: str = "in-transit"
+    id: int | None = None
+    status: str | None = "in-transit"
 
 
 class ParcelsDB:

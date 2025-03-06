@@ -1,6 +1,6 @@
 import logging
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import HTTPException
@@ -42,7 +42,7 @@ def convert(currency: CurrencyModel):
 
 
 @app.patch("/update-rate/{name}")
-def update_rate(name: str, rate: float):
+def update_rate(name: str, rate: float = Body(embed=True)):
     try:
         rate = float(rate)
     except ValueError:
@@ -64,7 +64,7 @@ def delete_rate(currency: str):
     return {"status": "ok"}
 
 
-app.mount("/", StaticFiles(directory="./static", html=True), name="static")
+app.mount("/", StaticFiles(directory="./static2", html=True), name="static2")
 
 if __name__ == "__main__":
     import uvicorn

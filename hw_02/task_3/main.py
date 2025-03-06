@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from fastapi.exceptions import HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -26,9 +26,9 @@ app.add_middleware(
 @app.get("/parcels")
 def get_parcels(status: str, destination: str):
     parcels = parcels_db.get_parcels()
-    if status is not None:
+    if status != "None":
         parcels = list(filter(lambda parcel: parcel.status == status, parcels))
-    if destination is not None:
+    if destination != "None":
         parcels = list(filter(lambda parcel: parcel.destination == destination, parcels))
 
     logger.info(f"GET/parcels: {parcels}")
@@ -36,7 +36,8 @@ def get_parcels(status: str, destination: str):
 
 
 @app.post("/parcels")
-def add_parcels(model: ParcelsModel):
+def add_parcels(model: ParcelsModel = Body(embed=True)):
+
     parcels_db.add_parcel(model)
 
     logger.info(f"POST/add-parcels: {model.name}")
@@ -44,7 +45,7 @@ def add_parcels(model: ParcelsModel):
 
 
 @app.patch("/parcels/{id}")
-def update_parcels_status(id: int, status: str):
+def update_parcels_status(id: int, status: str = Body(embed=True)):
     parcels_db.update_status(id=id, status=status)
 
     logger.info(f"PATCH/update-status: {id} - {status}")
@@ -59,7 +60,7 @@ def delete_parcels(id: int):
     return {"status": "ok"}
 
 
-app.mount("/", StaticFiles(directory="./static", html=True), name="static")
+app.mount("/", StaticFiles(directory="./static3", html=True), name="static3")
 
 
 if __name__ == "__main__":
