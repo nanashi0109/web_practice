@@ -31,7 +31,7 @@ def get_parcels(status: str, destination: str):
     if destination != "None":
         parcels = list(filter(lambda parcel: parcel.destination == destination, parcels))
 
-    logger.info(f"GET/parcels: {parcels}")
+    logger.info(f"GET/parcels: {len(parcels)}")
     return {"status": "ok", "parcels": parcels}
 
 
@@ -40,7 +40,7 @@ def add_parcels(model: ParcelsModel = Body(embed=True)):
 
     parcels_db.add_parcel(model)
 
-    logger.info(f"POST/add-parcels: {model.name}")
+    logger.info(f"POST/add-parcels: {model.weight}")
     return {"status": "ok"}
 
 
@@ -60,9 +60,9 @@ def delete_parcels(id: int):
     return {"status": "ok"}
 
 
-app.mount("/", StaticFiles(directory="./static3", html=True), name="static3")
+app.mount("/", StaticFiles(directory="./static_3", html=True), name="static_3")
 
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", reload=True)
+    uvicorn.run("main3:app", reload=True)

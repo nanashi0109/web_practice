@@ -6,9 +6,9 @@ const createParcel = function(id, name, status, weight, senders_address, destina
     const parcel = document.createElement("div");
     parcel.classList.add("parcel-card");
 
-    const parcelHeader = document.createElement("h3");
+    const parcelHeader = document.createElement("h4");
     parcelHeader.classList.add("parcel-card-header");
-    parcelHeader.innerHTML = id;
+    parcelHeader.innerHTML = "Посылка #" + id;
 
     const parcelName = document.createElement("p");
     parcelName.innerHTML = name;
@@ -20,12 +20,17 @@ const createParcel = function(id, name, status, weight, senders_address, destina
     parcelWeight.innerHTML = weight;
 
     const parcelAddress = document.createElement("p");
-    parcelAddress.innerHTML = "from" + senders_address;
+    parcelAddress.innerHTML = "from " + senders_address;
 
     const parcelDestination = document.createElement("p");
-    parcelDestination.innerHTML = "to" + destination;
+    parcelDestination.innerHTML = "to " + destination;
 
-    parcel.appendChild(parcelHeader, parcelName,  parcelStatus, parcelWeight, parcelAddress, parcelDestination);
+    parcel.appendChild(parcelHeader);
+    parcel.appendChild(parcelName);
+    parcel.appendChild(parcelStatus);
+    parcel.appendChild(parcelWeight);
+    parcel.appendChild(parcelAddress);
+    parcel.appendChild(parcelDestination);
 
     parcelsContainer.appendChild(parcel);
 }
@@ -60,7 +65,14 @@ const addParcel = function(name, weight, senders_address, destination){
     return fetch(backendURL + "/parcels", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({name: name, weight: weight, senders_address: senders_address, destination: destination})
+        body: JSON.stringify({
+            "model": {
+                "name": name,
+                "weight": weight,
+                "senders_address": senders_address,
+                "destination": destination
+              }
+          })
     })
     .then(response => response.json())
     .catch(error => console.log(error));

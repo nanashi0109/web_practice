@@ -14,7 +14,7 @@ class ParcelsModel(BaseModel):
 
 class ParcelsDB:
     def __init__(self):
-        self.__connection = sqlite3.Connection("parcels_.db", check_same_thread=False)
+        self.__connection = sqlite3.Connection("parcels.db", check_same_thread=False)
         self.__cursor = self.__connection.cursor()
         self.create_db()
     
@@ -43,7 +43,7 @@ class ParcelsDB:
         return parcels
 
     def add_parcel(self, model: ParcelsModel):
-        if model.id == None:
+        if model.id is None:
             model.id = self.__get_last_id()
 
         self.__cursor.execute("""
@@ -70,5 +70,8 @@ class ParcelsDB:
     def __get_last_id(self):
         parcels = self.get_parcels()
 
-        return min(i.id for i in parcels) + 1
+        if parcels  == []:
+            return 1
+
+        return max(i.id for i in parcels) + 1
     
